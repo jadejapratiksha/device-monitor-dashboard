@@ -1,11 +1,16 @@
+# main.py
+import tkinter as tk
+
 from model import DeviceModel
+from ui import DashboardUI
+
+
+def main() -> None:
+    root = tk.Tk()
+    model = DeviceModel(history_size=30)
+    DashboardUI(root, model)
+    root.mainloop()
+
 
 if __name__ == "__main__":
-    m = DeviceModel(history_size=30)
-    m.start()
-
-    for _ in range(5):
-        m.update_once()
-        print("Latest:", m.latest)
-        print("Warnings:", m.get_warning_state())
-        print("Temp history length:", len(m.get_history()["temperature"]))
+    main()
