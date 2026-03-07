@@ -46,6 +46,8 @@ class DeviceModel:
         self._hist_temp.clear()
         self._hist_hum.clear()
         self._hist_pres.clear()
+        # Reset latest values too (so UI shows zeros/placeholder)
+        self.latest = SensorReadings(0.0, 0.0, 0.0)
 
     def update_once(self) -> None:
         # Generate new readings and push into history
