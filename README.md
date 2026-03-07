@@ -24,6 +24,13 @@ The application monitors three simulated sensors:
 Sensor values are generated internally using mathematical functions and random noise to simulate real-world sensor behavior. The values update automatically every **1 second** and are visualized using a live updating chart.
 
 ---
+## Device Monitor Dashboard
+
+A Tkinter-based desktop dashboard that simulates IoT sensor data and visualizes it in real time.
+
+### Dashboard Preview
+
+![Dashboard Screenshot](assets/dashboard.png)
 
 # Features
 
