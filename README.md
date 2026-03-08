@@ -1,7 +1,17 @@
 
 # Device Monitor Dashboard
 
-## Technology Choice
+A Tkinter-based desktop dashboard that simulates IoT sensor data and visualizes it in real time.
+
+---
+
+# Dashboard Preview
+
+![Dashboard Screenshot](assets/Dashboard.png)
+
+---
+
+# Technology Choice
 
 **Language:** Python 3  
 **GUI Framework:** Tkinter  
@@ -24,13 +34,6 @@ The application monitors three simulated sensors:
 Sensor values are generated internally using mathematical functions and random noise to simulate real-world sensor behavior. The values update automatically every **1 second** and are visualized using a live updating chart.
 
 ---
-## Device Monitor Dashboard
-
-A Tkinter-based desktop dashboard that simulates IoT sensor data and visualizes it in real time.
-
-### Dashboard Preview
-
-![Dashboard Screenshot](assets/dashboard.png)
 
 # Features
 
@@ -41,27 +44,103 @@ A Tkinter-based desktop dashboard that simulates IoT sensor data and visualizes 
 - Warning indicator when sensor values exceed threshold
 - Adjustable temperature threshold slider
 - Dropdown menu to select which sensor to display in the chart
+- Export sensor data to CSV file
+- Dark Mode toggle switch
 - Clean separation between UI and data logic
+
+---
+
+# Bonus Features Implemented
+
+The following optional enhancements were implemented to improve usability and software quality.
+
+### CSV Export
+Users can export historical sensor data to a CSV file using the **Export CSV** button.
+
+### Dark Mode Toggle
+A custom toggle switch allows users to switch between light and dark UI themes.
+
+### Unit Tests
+Basic unit tests were added for the data/logic layer using Python's built-in `unittest` framework.
 
 ---
 
 # Project Architecture
 
-The project is organized into separate modules to ensure clean separation of concerns.
-
-```
 device-monitor-dashboard
 │
 ├── README.md
+├── assets
+│   └── dashboard.png
 │
-└── src
-    ├── main.py
-    ├── simulator.py
-    ├── model.py
-    └── ui.py
-```
+├── src
+│   ├── main.py
+│   ├── simulator.py
+│   ├── model.py
+│   └── ui.py
+│
+└── tests
+    └── test_model.py
 
-### Module Responsibilities
+---
+
+# Architecture Diagram
+
+                   +----------------------+
+                   |   SensorSimulator    |
+                   |    simulator.py      |
+                   |----------------------|
+                   | Generates simulated  |
+                   | sensor readings      |
+                   +----------+-----------+
+                              |
+                              v
+                   +----------------------+
+                   |      DeviceModel     |
+                   |       model.py       |
+                   |----------------------|
+                   | Stores sensor data   |
+                   | Maintains history    |
+                   | Applies thresholds   |
+                   | Prepares export data |
+                   +----------+-----------+
+                              |
+                              v
+                   +----------------------+
+                   |     DashboardUI      |
+                   |        ui.py         |
+                   |----------------------|
+                   | Tkinter GUI          |
+                   | Chart visualization  |
+                   | Dark mode toggle     |
+                   | CSV export           |
+                   +----------+-----------+
+                              |
+                              v
+                        +-----------+
+                        |   User    |
+                        +-----------+
+                              ^
+                              |
+                              |
+                     +----------------+
+                     |     main.py    |
+                     | Application    |
+                     | Entry Point    |
+                     +----------------+
+
+
+
+
+# Data Flow Explanation
+
+SensorSimulator → DeviceModel → DashboardUI → User
+                         ↑
+                         │
+                    User Controls
+              (Start / Stop / Reset / Toggle)
+
+# Module Responsibilities
 
 **main.py**  
 Entry point of the application. Initializes the GUI and starts the Tkinter event loop.
@@ -80,6 +159,8 @@ Implements the graphical user interface:
 - displays sensor values
 - handles user interaction
 - updates the chart
+- exports sensor data to CSV
+- supports dark mode toggle
 - communicates with the model
 
 ---
@@ -87,8 +168,6 @@ Implements the graphical user interface:
 # Design Patterns Used
 
 ## MVC (Model–View–Controller)
-
-The project loosely follows the MVC architecture.
 
 **Model:** `model.py`  
 Handles application data and business logic.
@@ -101,83 +180,27 @@ Initializes and connects the model and UI.
 
 ---
 
-## Observer Pattern (Conceptual)
-
-The UI periodically observes the model using a timer.
-
-Every second:
-
-```
-SensorSimulator → DeviceModel → UI refresh
-```
-
-The UI fetches new values from the model and updates the display and chart.
-
----
-
 # Architecture Diagram
 
-```
-           +--------------------+
-           |  SensorSimulator   |
-           |   simulator.py     |
-           +---------+----------+
-                     |
-                     v
-               +-----------+
-               | DeviceModel |
-               |  model.py   |
-               +------+------+
-                      |
-                      v
-                +------------+
-                | DashboardUI|
-                |   ui.py    |
-                +------+-----+
-                       |
-                       v
-                  Tkinter GUI
-```
-
-Data Flow:
-
-```
-Simulator → Model → UI → User
-```
+SensorSimulator → DeviceModel → DashboardUI → Tkinter GUI
 
 ---
 
-# How to Run the Application
+# Running the Application
 
-### Step 1 — Clone the repository
+### Install dependencies
 
-```
-git clone <repository-url>
-```
-
-### Step 2 — Install dependencies
-
-```
 pip install matplotlib
-```
 
-Tkinter is included with standard Python installations.
+### Run the application
 
-### Step 3 — Run the application
-
-```
 python src/main.py
-```
 
 ---
 
-# Possible Future Improvements
+# Running Unit Tests
 
-- Export sensor data to CSV
-- Add automated unit tests
-- Implement dark mode theme
-- Support multiple charts simultaneously
-- Improve UI styling
+python -m unittest discover tests
 
 ---
 

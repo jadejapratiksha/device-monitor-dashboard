@@ -71,3 +71,21 @@ class DeviceModel:
             humidity_high=self.latest.humidity_pct > self.hum_threshold_pct,
             pressure_high=self.latest.pressure_hpa > self.pres_threshold_hpa,
         )
+    def get_export_rows(self) -> List[List[float]]:
+        # Return rows for CSV export
+        temp_list = list(self._hist_temp)
+        hum_list = list(self._hist_hum)
+        pres_list = list(self._hist_pres)
+
+        min_len = min(len(temp_list), len(hum_list), len(pres_list))
+        rows: List[List[float]] = []
+
+        for i in range(min_len):
+            rows.append([
+                i + 1,
+                temp_list[i],
+                hum_list[i],
+                pres_list[i],
+            ])
+
+        return rows
