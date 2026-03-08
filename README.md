@@ -11,7 +11,7 @@ A Tkinter-based desktop dashboard that simulates IoT sensor data and visualizes 
 
 ---
 
-# Technology Choice
+# Technology Choice( Option A)
 
 **Language:** Python 3  
 **GUI Framework:** Tkinter  
